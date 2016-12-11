@@ -11,6 +11,9 @@ The JavaScript source code is directly embedded in <a href="extract-wunderlist.h
 - the order of the tasks is not preserved
 - notes and subtasks are not displayed
 
+This project resides at <https://github.com/onierstrasz/exportWunderlist>
+
+---
 # JSON entities
 
 The JSON backup contains the following entities:
