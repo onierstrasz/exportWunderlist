@@ -1,0 +1,83 @@
+<html>
+<head>
+	<title>Extract Wunderlist Backup</title>
+</head>
+
+<body>
+
+<h1 id="status">Extract Wunderlist Data</h1>
+
+<p>OK, so here's how to extract the contents of your Wunderlist lists so you can import them into Trello or whatever.</p>
+
+<ul>
+<li>Go to <a href="https://www.wunderlist.com" target="_blank">https://www.wunderlist.com</a></li>
+<li>Select Avatar > Account Settings > Create Backup</li>
+<li>Right-click > download linked file</li>
+<li><input type="file" id="myfile"> (try the <tt><a href="sample-wunderlist.json">sample-wunderlist.json</a></tt>)</li>
+</ul>
+
+<h2>Caveats for this version</h2>
+<ul>
+<li>order of tasks not preserved</li>
+<li>no notes or subtasks</li>
+</ul>
+
+<div id="lists"></div>
+
+<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+
+<script type="text/javascript">
+/*
+NB: Will not work locally with Chrome; must go through URL
+- Take care with JSON syntax; field names must be quoted!
+*/
+
+// Hardwire the display of a specific file:
+// jQuery.getJSON("sample-wunderlist.json", displayWunderlistData);
+
+// Walk through the Wunderlist JSON backup, and display each list name with all its tasks
+function displayWunderlistData(wlist) {
+	var listDiv = document.getElementById('lists');
+	// Clear the last displayed backup or sample
+	while(listDiv.firstChild) {
+		listDiv.removeChild(listDiv.firstChild);
+	}
+	var heading = document.createElement('h1');
+	var title = document.createTextNode("Lists")
+	heading.appendChild(title);
+	listDiv.appendChild(heading);
+	var lists = wlist.data.lists;
+	var tasks = wlist.data.tasks;
+	for (var i in lists) {
+		var list = lists[i];
+		var h2 = document.createElement('h2');
+		h2.appendChild(document.createTextNode(list.title));
+		listDiv.appendChild(h2);
+		var ul = document.createElement('ul');
+		for (var j in tasks) {
+			var task = tasks[j];
+			// Show all tasks for this list that have not been completed yet
+			if ((task.list_id == list.id) && !task.completed) {
+				var li = document.createElement('li');
+				li.appendChild(document.createTextNode(task.title));
+				ul.appendChild(li);
+			}
+		}
+		listDiv.appendChild(ul);
+	}
+}
+
+// Grab the file from the input button above, convert to URL, parse JSON, and display the contents
+function generateList() {
+	var myfile = document.getElementById("myfile").files[0];
+	var fileURL = window.URL.createObjectURL(myfile);
+	jQuery.getJSON(fileURL, displayWunderlistData);
+}
+
+// Automatically trigger the display when the file is chosen
+document.getElementById('myfile').onchange = generateList;
+</script>
+
+</body>
+</html> 
+
