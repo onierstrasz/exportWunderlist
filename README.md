@@ -28,59 +28,53 @@ This project only considers the list and task entities.
 
 # Sample data (extract)
 
-	{"user":756976,
-	"exported":"Sat Nov 12 2016 13:12:01 GMT+0000 (UTC)",
+	{"user":5468545,
 	"data":
 	{
 	"lists":[
 		{"id":73679355,
-			"title":"To do",
-			"owner_type":"user",
-			"owner_id":756976,
+			"title":"A sample to do list",
 			"list_type":"list",
 			"public":false,
-			"revision":16212981,
-			"created_at":"2013-03-28T16:37:57.338Z",
+			"type":"list"},
+		{"id":73679455,
+			"title":"A sample shopping list",
+			"list_type":"list",
+			"public":false,
 			"type":"list"}
 		],	
 	"tasks":[
 		{"id":126711949,
-			"created_at":"2012-12-08T04:30:36.494Z",
-			"created_by_id":756976,
 			"completed":false,
 			"starred":false,
 			"list_id":73679355,
-			"revision":41642051,
-			"title":"derust paper cart",
-			"type":"task"}
-		{"id":550777956,
-			"created_at":"2014-02-23T19:17:13.701Z",
-			"created_by_id":1475910,
-			"completed":false,
-			"starred":false,
-			"list_id":73679355,
-			"revision":11,
-			"title":"Recipe linguine al salmone",
+			"title":"Code up a Wunderlist exporter",
 			"type":"task"},
-		],
+		{"id":651164079,
+			"completed":false,
+			"starred":false,
+			"list_id":73679355,
+			"title":"Go shopping",
+			"type":"task"},
+		{"id":1548411143,
+			"completed":false,
+			"starred":false,
+			"list_id":73679455,
+			"revision":40,
+			"title":"Bread",
+			"type":"task"},
+		{"id":1661803503,
+			"completed":false,
+			"starred":false,
+			"list_id":73679455,
+			"revision":11,
+			"title":"Milk",
+			"type":"task"}
+		],	
 	"reminders":[],
 	"subtasks":[],
-	"notes":[
-		{"id":44753593,
-			"revision":2,
-			"content":"Pasta with salmon\n\nSmoked salmon\nShallots\nOil,\nbutter\nVodka\nCream\nSalmon eggs or green pepper or chives\nPenne lisce or farfalle\n\n",
-			"type":"note",
-			"task_id":550777956}
-		],
-	"task_positions":[
-		{"id":73679455,
-			"list_id":73679455,
-			"revision":1399,
-			"values":[2279046091,
-		2276786495,
-		1344857089],
-			"type":"task_position"},
-	]}}
+	"notes":[],
+	"task_positions":[]}}
 
 ---
 
