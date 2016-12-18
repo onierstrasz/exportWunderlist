@@ -4,7 +4,7 @@ Extracts the contents of a JSON backup of your Wunderlist lists and displays the
 
 Wunderlist provides a way to <a href="https://support.wunderlist.com/customer/en/portal/articles/2364564-can-i-backup-export-my-data-">backup your Wunderlist data</a> as a JSON file, but otherwise no way to export your lists. This project loads the JSON data and walks through it to generate a readable version of your lists.
 
-The JavaScript source code is directly embedded in <a href="extract-wunderlist.html">HTML web page</a>.
+The JavaScript source code is directly embedded in a <a href="extract-wunderlist.html">HTML web page</a>. To use it, simple clone this repository (or download the zip), and open the HTML file `extract-wunderlist.html`. It will prompt you for the JSON backup file to process.
 
 *Caveats:*
 

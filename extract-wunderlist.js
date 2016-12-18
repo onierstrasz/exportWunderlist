@@ -1,3 +1,7 @@
+/*
+	extract-wunderlist.js -- walk through a wunderlist JSON backup and extract
+	the data to present it in a readable from (e.g., suitable to import into Trello)
+*/
 
 // Walk through the Wunderlist JSON backup data and sort it into a list of lists of tasks
 function collateData(wlist) {
@@ -7,14 +11,16 @@ function collateData(wlist) {
 	var id2list = {};
 	for (var i in lists) {
 		var list = lists[i];
-		var newList = {"title":list.title,"tasks":[]};
+		var newList = {"title":list.title,"tasks":[],"starred":[]};
 		listData.lists.push(newList);
 		id2list[list.id] = newList;
 	}
 	for (var j in tasks) {
 		var task = tasks[j];
+		// Only add tasks that have not been completed
 		if (!task.completed) {
-			id2list[task.list_id].tasks.push({"task":task.title});
+			var title = (task.starred?"* ":"") + task.title;
+			id2list[task.list_id][task.starred?"starred":"tasks"].push({"task":title});
 		}
 	}
 	return listData;
@@ -24,7 +30,8 @@ function collateData(wlist) {
 	The resulting list data looks like this:
 
 	{"lists":[
-		{"title":"To do","tasks":[ {"task":"go shopping"},{"task":"do todos"}]},
+		{"title":"To do","tasks":[{"task":"go shopping"}],
+						"starred":[{"task":"* do todos"}]},
 		{"title":"Shopping","tasks":[{"task":"milk"},{"task":"bread"}]}
 	]}
 */
@@ -47,18 +54,19 @@ function displayData(listData) {
 		h2.appendChild(document.createTextNode(list.title));
 		listDiv.appendChild(h2);
 		var ul = document.createElement('ul');
-		var tasks = list.tasks;
-		for (var j = 0, tsize = tasks.length; j < tsize; j++) {
-			var task = tasks[j];
-			// NB: only show tasks that have not been completed yet
-			if (!task.completed) {
-				var li = document.createElement('li');
-				li.appendChild(document.createTextNode(task.task));
-				ul.appendChild(li);
-			}
-		}
+		// List starred tasks first
+		listTasks(ul,list.starred);
+		listTasks(ul,list.tasks);
 		listDiv.appendChild(ul);
 	}
+}
+
+function listTasks(ul,tasks) {
+	for (var j = 0, tsize = tasks.length; j < tsize; j++) {
+		var li = document.createElement('li');
+		li.appendChild(document.createTextNode(tasks[j].task));
+		ul.appendChild(li);
+	}	
 }
 
 // Collate the JSON backup into a simple list of lists of tasks, then display it
